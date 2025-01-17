@@ -7,11 +7,11 @@ import ReviewRating from './ReviewRating';
 
 function Review() {
   const [movies, setMovies] = useState([
-    'Movie 1',
-    'Movie 2',
-    'Movie 3',
-    'Movie 4',
-    'Movie 5',
+    'Movie one',
+    'Movie two',
+    'Movie three',
+    'Movie four',
+    'Movie five',
   ]);
   const [selectedMovie, setSelectedMovie] = useState('');
   const [enteredTitle, setEnteredTitle] = useState('');
