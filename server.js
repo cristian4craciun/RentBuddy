@@ -1,3 +1,4 @@
+#importing libraries
 import mysql from 'mysql';
 import config from './config.js';
 import fetch from 'node-fetch';
