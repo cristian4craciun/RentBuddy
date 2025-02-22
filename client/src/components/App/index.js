@@ -1,8 +1,9 @@
 import React from 'react';
-import Review from './Review';
+import Home from '../Home';  // Corrected path
 
 function App() {
-  return <Review />;
+  return <Home />;
 }
 
 export default App;
+
