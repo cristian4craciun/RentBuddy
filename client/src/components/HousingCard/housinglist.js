@@ -11,6 +11,7 @@ const HousingList = ({ housings }) => {
             price={housing.price} 
             bedrooms={housing.bedrooms} 
             location={housing.location}
+            image={housing.image}  // Pass the image prop
           />
         </Grid>
       ))}

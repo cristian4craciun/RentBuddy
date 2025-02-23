@@ -30,30 +30,20 @@ const Home = () => {
     }
 
     const sampleHousings = [
-        { id: 1, price: 1200, bedrooms: 2, location: "Downtown" },
-        { id: 2, price: 1500, bedrooms: 3, location: "Suburb" }
-    ];
+        { id: 1, price: 1200, bedrooms: 2, location: "Downtown", image: "https://via.placeholder.com/400x300" },
+        { id: 2, price: 1500, bedrooms: 3, location: "Suburb", image: "https://via.placeholder.com/400x300" },
+        { id: 3, price: 1800, bedrooms: 4, location: "Near University", image: "https://via.placeholder.com/400x300" },
+        { id: 4, price: 900, bedrooms: 1, location: "Outskirts", image: "https://via.placeholder.com/400x300" },
+        { id: 5, price: 2200, bedrooms: 5, location: "Luxury Area", image: "https://via.placeholder.com/400x300" }
+    ];    
 
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <Grid
-                container
-                spacing={2}
-                direction="column"
-                justify="flex-start"
-                alignItems="flex-start"
-                sx={{ minHeight: '100vh', marginTop: theme.spacing(8), marginLeft: theme.spacing(4) }}
-            >
-                <Grid item>
-                    <Typography variant="h3">
-                        {mode === 0 ? "Waterloo Housing" : "Welcome back!"}
-                    </Typography>
-                </Grid>
-                <Grid item xs={12}>
-                    <HousingList housings={sampleHousings} />
-                </Grid>
-            </Grid>
+            <div>
+                <Typography variant="h4" gutterBottom>Housing</Typography>
+                <HousingList housings={sampleHousings} />
+            </div>
         </ThemeProvider>
     );
 };
