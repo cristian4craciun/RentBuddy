@@ -8,6 +8,7 @@ const HousingList = ({ housings }) => {
       {housings.map(housing => (
         <Grid item key={housing.id} xs={12} sm={6} md={4}>
           <HousingCard 
+            id={housing}
             price={housing.price} 
             bedrooms={housing.bedrooms} 
             location={housing.location}
