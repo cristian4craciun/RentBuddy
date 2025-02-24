@@ -2,10 +2,10 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { createTheme, ThemeProvider, CssBaseline } from '@mui/material';
 import Navigation from '../Navigation';
-import Profile from '../Profile';
 import Home from '../Home';
 import RoommateFinder from '../RoommateFinder';
 import HousingDetails from '../HousingDetails';
+import SignIn from '../SignIn';
 
 // Create a dark theme
 const darkTheme = createTheme({
@@ -37,8 +37,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/details/:id" element={<HousingDetails />} />
-          <Route path="/profile" element={<Profile />} />
           <Route path="/roommate-finder" element={<RoommateFinder />} />
+          <Route path="/signin" element={<SignIn />} /> 
         </Routes>
       </Router>
     </ThemeProvider>

@@ -34,13 +34,13 @@ const Navigation = () => {
         </Box>
 
         {/* Navigation Buttons */}
-        <Button color="inherit" component={Link} to="/">Housing</Button>  {/* Link to Housing page */}
-        <Button color="inherit" component={Link} to="/roommate-finder">Roommate Finder</Button>  {/* Link to Roommate Finder page */}
-        <Button color="inherit" component={Link} to="/profile">My Profile</Button>  {/* Link to My Profile page */}
+        <Button color="inherit" component={Link} to="/">Housing</Button>
+        <Button color="inherit" component={Link} to="/roommate-finder">Roommate Finder</Button>
+        <Button color="inherit" component={Link} to="/auth">Sign In</Button>
       </Toolbar>
     </AppBar>
   );
 };
 
-// Export the Navigation component to be used in other parts of the application
 export default Navigation;
+
