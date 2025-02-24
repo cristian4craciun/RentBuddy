@@ -1,30 +1,32 @@
+// Importing necessary dependencies
 import React from 'react';
-import { Link } from 'react-router-dom';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
+import { Link } from 'react-router-dom';  // Enables navigation between pages
+import AppBar from '@mui/material/AppBar';  // Top navigation bar component from Material-UI
+import Toolbar from '@mui/material/Toolbar';  // Toolbar for structuring content inside AppBar
+import Typography from '@mui/material/Typography';  // Typography component for text styling
+import Button from '@mui/material/Button';  // Button component from Material-UI
+import Box from '@mui/material/Box';  // Box component for layout structure
 
+// Navigation Component
 const Navigation = () => {
   return (
     <AppBar position="static" sx={{ backgroundColor: '#1e1e1e', padding: '8px' }}>
       <Toolbar>
-        {/* RentBuddy Logo & Larger Text */}
+        {/* RentBuddy Logo & Title */}
         <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
           <Box 
             component="img" 
-            src="/logo.png"  // Ensure the logo path is correct
+            src="/logo.png"  // Ensure the logo file is stored in the correct location
             alt="RentBuddy Logo" 
-            sx={{ height: 55, marginRight: 1 }} 
+            sx={{ height: 55, marginRight: 1 }} // Styling for the logo
           />
           <Typography 
-            variant="h4"
+            variant="h4"  // Large heading size
             sx={{ 
-              fontFamily: "'Poppins', sans-serif", 
-              fontWeight: 'bold', 
-              color: '#90caf9',
-              fontSize: '3rem'
+              fontFamily: "'Poppins', sans-serif",  // Custom font for a modern look
+              fontWeight: 'bold',  // Bold text for emphasis
+              color: '#90caf9',  // Light blue text color
+              fontSize: '3rem'  // Large font size for branding
             }}
           >
             RentBuddy
@@ -41,3 +43,4 @@ const Navigation = () => {
 };
 
 export default Navigation;
+
