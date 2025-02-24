@@ -2,6 +2,8 @@ import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Container, Typography, Box, Button, Card, CardMedia, CardContent } from '@mui/material';
 import { ArrowBack } from '@mui/icons-material';
+import { LocationOn, Bed } from '@mui/icons-material';
+
 
 const HousingDetails = () => {
   const location = useLocation();

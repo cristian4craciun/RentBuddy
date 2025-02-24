@@ -14,17 +14,17 @@ const Navigation = () => {
         <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
           <Box 
             component="img" 
-            src="/logo.png"  // Make sure the logo path is correct
+            src="/logo.png"  // Ensure the logo path is correct
             alt="RentBuddy Logo" 
             sx={{ height: 55, marginRight: 1 }} 
           />
           <Typography 
-            variant="h4"  // Make the text larger
+            variant="h4"
             sx={{ 
               fontFamily: "'Poppins', sans-serif", 
               fontWeight: 'bold', 
               color: '#90caf9',
-              fontSize: '3rem'  // Explicitly increase font size
+              fontSize: '3rem'
             }}
           >
             RentBuddy
@@ -33,9 +33,8 @@ const Navigation = () => {
 
         {/* Navigation Buttons */}
         <Button color="inherit" component={Link} to="/">Housing</Button>
-        <Route path="/details/:id" element={<HousingDetails />} />
         <Button color="inherit" component={Link} to="/roommate-finder">Roommate Finder</Button>
-        <Button color="inherit" component={Link} to="/signin">Sign In</Button>
+        <Button color="inherit" component={Link} to="/profile">My Profile</Button>
       </Toolbar>
     </AppBar>
   );
