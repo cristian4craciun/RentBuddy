@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid";
 import callApiLoadUserSettings from './callApiLoadUserSettings';
 import HousingList from '../HousingCard/housinglist';  // Adjust the path if necessary
 
-const serverURL = "";
+const serverURL = "http://localhost:5000";
 
 const theme = createTheme({
     palette: {
@@ -19,10 +19,15 @@ const theme = createTheme({
 const Home = () => {
     const [userID, setUserID] = useState(1);
     const [mode, setMode] = useState(0);
+    const [housings, setHousings] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Uncomment the following line to activate loading user settings when needed
+        // Load user settings if needed
         // loadUserSettings();
+        
+        // Fetch listings from the API
+        fetchListings();
     }, []);
 
     const loadUserSettings = () => {
@@ -32,6 +37,44 @@ const Home = () => {
             });
     }
 
+    const fetchListings = async () => {
+        try {
+            setLoading(true);
+            console.log("Fetching listings from:", `${serverURL}/api/listings`);
+            
+            const response = await fetch(`${serverURL}/api/listings`);
+            
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error(`HTTP error! Status: ${response.status}, Details:`, errorText);
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            console.log("Received data:", data);
+            
+            if (data.length === 0) {
+                console.warn("No listings found in database");
+                // You can decide what to do here - use sample data or show a message
+            }
+            
+            // Map database fields...
+            const mappedData = data.map(listing => ({
+                // ...mapping code remains the same
+            }));
+            
+            setHousings(mappedData);
+        } catch (error) {
+            console.error("Error fetching listings:", error);
+            // Show the error in the UI instead of just falling back silently
+            alert("Failed to load housing listings. See console for details.");
+            setHousings(sampleHousings);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // Keeping sampleHousings as fallback data
     const sampleHousings = [
         {
             id: 1,
@@ -74,8 +117,6 @@ const Home = () => {
             description: "Spacious 5-bedroom loft-style apartment near Laurier. Includes a gym, study lounge, and gaming room."
         }
     ];
-    
-    
 
     return (
         <ThemeProvider theme={theme}>
@@ -94,7 +135,11 @@ const Home = () => {
                 >
                     Housing
                 </Typography>
-                <HousingList housings={sampleHousings} />
+                {loading ? (
+                    <Typography align="center" sx={{ my: 4 }}>Loading housing listings...</Typography>
+                ) : (
+                    <HousingList housings={housings} />
+                )}
             </Container>
         </ThemeProvider>
     );
