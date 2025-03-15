@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid";
 import callApiLoadUserSettings from './callApiLoadUserSettings';
 import HousingList from '../HousingCard/housinglist';  // Adjust the path if necessary
 
-const serverURL = "http://localhost:5000";
+const serverURL = "https://shiny-doodle-j96545wrjqw25g4j-5000.app.github.dev"; //change based on forwarded url
 
 const theme = createTheme({
     palette: {

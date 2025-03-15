@@ -19,18 +19,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, "client/build")));
 
+let connection = mysql.createConnection(config);
+    
+connection.connect(function(err) {
+    if (err) {
+        console.error('Error connecting to database:', err);
+    }
+    
+    console.log("Connected to database!");
+
 // API to fetch all listings
 app.get('/api/listings', (req, res) => {
-    let connection = mysql.createConnection(config);
-    
-    connection.connect(function(err) {
-        if (err) {
-            console.error('Error connecting to database:', err);
-            return res.status(500).json({ error: "Database connection failed" });
-        }
-        
-        console.log("Connected to database!");
-        
         let sql = "SELECT * FROM Listings";
         connection.query(sql, (error, results) => {
             if (error) {
@@ -40,7 +39,6 @@ app.get('/api/listings', (req, res) => {
                 console.log("Results retrieved:", results.length);
                 res.json(results);
             }
-            connection.end();
         });
     });
 });
