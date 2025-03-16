@@ -36,7 +36,7 @@ const Navigation = () => {
         {/* Navigation Buttons */}
         <Button color="inherit" component={Link} to="/">Housing</Button>
         <Button color="inherit" component={Link} to="/roommate-finder">Roommate Finder</Button>
-        <Button color="inherit" component={Link} to="/auth">Sign In</Button>
+        <Button color="inherit" component={Link} to="/signin">Sign In</Button>
       </Toolbar>
     </AppBar>
   );
