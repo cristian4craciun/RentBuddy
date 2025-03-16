@@ -1,18 +1,20 @@
+// Import necessary dependencies from React and Material-UI
 import React, { useState } from 'react';
 import { TextField, Button, Grid, MenuItem, FormControlLabel, Checkbox, Box } from '@mui/material';
 
+// Functional component for the filter bar
 const FilterBar = ({ applyFilters }) => {
-    // State for filter options
+    // State to manage filter selections
     const [filters, setFilters] = useState({
-        minPrice: "",
-        maxPrice: "",
-        bedrooms: "",
-        bathrooms: "",
-        petsAllowed: false,
-        parkingAvailable: false
+        minPrice: "",          // Minimum price filter
+        maxPrice: "",          // Maximum price filter
+        bedrooms: "",          // Number of bedrooms filter
+        bathrooms: "",         // Number of bathrooms filter
+        petsAllowed: false,    // Checkbox: Pets allowed filter
+        parkingAvailable: false // Checkbox: Parking availability filter
     });
 
-    // Handles filter input changes
+    // Handles changes in filter inputs (both text fields and checkboxes)
     const handleChange = (e) => {
         setFilters({
             ...filters,
@@ -20,12 +22,12 @@ const FilterBar = ({ applyFilters }) => {
         });
     };
 
-    // Handles applying filters
+    // Function to apply the selected filters
     const handleApplyFilters = () => {
-        applyFilters(filters);
+        applyFilters(filters); // Passes the selected filters to the parent component
     };
 
-    // Handles clearing filters
+    // Function to clear all filters and reset selections
     const handleClearFilters = () => {
         setFilters({
             minPrice: "",
@@ -35,13 +37,15 @@ const FilterBar = ({ applyFilters }) => {
             petsAllowed: false,
             parkingAvailable: false
         });
-        applyFilters({}); // Reset the filter results
+        applyFilters({}); // Resets the displayed listings
     };
 
     return (
+        // Box container with styling for background and spacing
         <Box sx={{ p: 2, mb: 3, backgroundColor: "#1e1e1e", borderRadius: 2, boxShadow: 3 }}>
+            {/* Grid container for filter inputs - first row */}
             <Grid container spacing={2} justifyContent="center">
-                {/* First Row: Price Filters */}
+                {/* Minimum Price Input */}
                 <Grid item xs={12} sm={6} md={3}>
                     <TextField
                         fullWidth
@@ -53,6 +57,8 @@ const FilterBar = ({ applyFilters }) => {
                         size="small"
                     />
                 </Grid>
+
+                {/* Maximum Price Input */}
                 <Grid item xs={12} sm={6} md={3}>
                     <TextField
                         fullWidth
@@ -65,7 +71,7 @@ const FilterBar = ({ applyFilters }) => {
                     />
                 </Grid>
 
-                {/* Bedroom & Bathroom Filters */}
+                {/* Bedrooms Dropdown */}
                 <Grid item xs={12} sm={6} md={3}>
                     <TextField
                         fullWidth
@@ -86,6 +92,7 @@ const FilterBar = ({ applyFilters }) => {
                     </TextField>
                 </Grid>
 
+                {/* Bathrooms Dropdown */}
                 <Grid item xs={12} sm={6} md={3}>
                     <TextField
                         fullWidth
@@ -104,7 +111,7 @@ const FilterBar = ({ applyFilters }) => {
                     </TextField>
                 </Grid>
 
-                {/* Second Row: Checkbox Filters */}
+                {/* Pets Allowed Checkbox */}
                 <Grid item xs={6} sm={3}>
                     <FormControlLabel
                         control={
@@ -118,6 +125,7 @@ const FilterBar = ({ applyFilters }) => {
                     />
                 </Grid>
 
+                {/* Parking Available Checkbox */}
                 <Grid item xs={6} sm={3}>
                     <FormControlLabel
                         control={
@@ -132,13 +140,16 @@ const FilterBar = ({ applyFilters }) => {
                 </Grid>
             </Grid>
 
-            {/* Buttons for applying and clearing filters */}
+            {/* Grid for Apply and Clear Filters buttons */}
             <Grid container spacing={2} justifyContent="center" sx={{ mt: 2 }}>
+                {/* Apply Filters Button */}
                 <Grid item>
                     <Button variant="contained" color="primary" onClick={handleApplyFilters}>
                         Apply Filters
                     </Button>
                 </Grid>
+
+                {/* Clear Filters Button */}
                 <Grid item>
                     <Button variant="outlined" color="secondary" onClick={handleClearFilters}>
                         Clear Filters
@@ -149,4 +160,5 @@ const FilterBar = ({ applyFilters }) => {
     );
 };
 
+// Export the FilterBar component for use in other parts of the application
 export default FilterBar;
