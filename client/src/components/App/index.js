@@ -5,6 +5,7 @@ import Navigation from '../Navigation';
 import Home from '../Home';
 import RoommateFinder from '../RoommateFinder';
 import HousingDetails from '../HousingDetails';
+import MyProfile from '../Profile';
 import SignIn from '../SignIn';
 
 // Create a dark theme
@@ -38,6 +39,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/details/:id" element={<HousingDetails />} />
           <Route path="/roommate-finder" element={<RoommateFinder />} />
+          <Route path="/profile" element={<MyProfile />} />
           <Route path="/signin" element={<SignIn />} /> 
         </Routes>
       </Router>
