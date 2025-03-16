@@ -1,63 +1,132 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { withFirebase } from '../../Firebase';
-import '../Styles/auth.css'; // Import the CSS file
+import {
+  Container,
+  TextField,
+  Button,
+  Typography,
+  Box,
+  CircularProgress,
+  Alert,
+} from '@mui/material';
 
 const Login = ({ firebase }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    setLoading(true);
 
-    firebase
-      .doSignInWithEmailAndPassword(email, password)
-      .then(userCredential => {
-        navigate('/');
-      })
-      .catch(error => {
-        console.error('Login error:', error.message);
+    try {
+      const idToken = await firebase.doSignInWithEmailAndPassword(email, password);
+
+      // Send token to backend
+      const response = await fetch('/api/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idToken }),
       });
+
+      const data = await response.json();
+      if (data.user) {
+        navigate('/'); // Redirect to home after login
+      } else {
+        setError("Authentication failed.");
+      }
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="container" id="container">
-      <div className="form-container sign-in-container">
-        <form onSubmit={handleSubmit}>
-          <h1>Sign in</h1>
-          <span>or use your account</span>
-          <input
+    <Container maxWidth="xs">
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          mt: 8,
+          p: 4,
+          borderRadius: 2,
+          boxShadow: 5,
+          backgroundColor: '#1e1e1e', // Darker background
+          color: '#fff',
+        }}
+      >
+        <Typography variant="h4" fontWeight="bold" gutterBottom>
+          Sign In
+        </Typography>
+        <Typography variant="body2" color="grey.500" mb={2}>
+          Use your email and password to log in
+        </Typography>
+
+        {error && <Alert severity="error" sx={{ width: '100%', mb: 2 }}>{error}</Alert>}
+
+        <form onSubmit={handleSubmit} style={{ width: '100%' }}>
+          <TextField
+            label="Email"
             type="email"
-            placeholder="Email"
+            variant="outlined"
+            fullWidth
+            margin="normal"
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
+            InputLabelProps={{ style: { color: '#90caf9' } }} // Light blue label
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': { borderColor: '#90caf9' },
+                '&:hover fieldset': { borderColor: '#64b5f6' },
+                '&.Mui-focused fieldset': { borderColor: '#42a5f5' },
+              },
+              input: { color: '#fff' },
+            }}
           />
-          <input
+          <TextField
+            label="Password"
             type="password"
-            placeholder="Password"
+            variant="outlined"
+            fullWidth
+            margin="normal"
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
+            InputLabelProps={{ style: { color: '#90caf9' } }}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': { borderColor: '#90caf9' },
+                '&:hover fieldset': { borderColor: '#64b5f6' },
+                '&.Mui-focused fieldset': { borderColor: '#42a5f5' },
+              },
+              input: { color: '#fff' },
+            }}
           />
-          <a href="#">Forgot your password?</a>
-          <button>Sign In</button>
+
+          <Button
+            type="submit"
+            variant="contained"
+            fullWidth
+            sx={{ mt: 2, py: 1.5, bgcolor: '#42a5f5' }}
+            disabled={loading}
+          >
+            {loading ? <CircularProgress size={24} color="inherit" /> : 'Sign In'}
+          </Button>
         </form>
-      </div>
-      <div className="overlay-container">
-        <div className="overlay">
-          <div className="overlay-panel overlay-left">
-            <h1>Welcome Back!</h1>
-            <p>To keep connected with us please login with your personal info</p>
-            <button className="ghost" id="signIn" onClick={() => navigate('/login')}>Sign In</button>
-          </div>
-          <div className="overlay-panel overlay-right">
-            <h1>Hello, Friend!</h1>
-            <p>Enter your personal details and start journey with us</p>
-            <button className="ghost" id="signUp" onClick={() => navigate('/signup')}>Sign Up</button>
-          </div>
-        </div>
-      </div>
-    </div>
+
+        <Typography variant="body2" mt={2}>
+          Don't have an account?{" "}
+          <Button variant="text" onClick={() => navigate('/signup')} sx={{ color: '#90caf9' }}>
+            Sign Up
+          </Button>
+        </Typography>
+      </Box>
+    </Container>
   );
 };
 

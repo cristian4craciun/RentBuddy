@@ -6,18 +6,26 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import admin from 'firebase-admin'
+import serviceAccount from "./serviceAccountKey.json" with { type: "json" };
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://msci342-project-50a9a-default-rtdb.firebaseio.com/"
+});
+
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5001;
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, "client/build")));
+
 
 let connection = mysql.createConnection(config);
     
@@ -42,6 +50,65 @@ app.get('/api/listings', (req, res) => {
         });
     });
 });
+
+app.post('/api/auth', async (req, res) => {
+  const { idToken } = req.body;
+
+  try {
+      // Verify Firebase ID Token
+      const decodedToken = await admin.auth().verifyIdToken(idToken);
+      const { email } = decodedToken;
+
+      if (!email) {
+          return res.status(400).json({ error: "Invalid token, email not found" });
+      }
+
+      connection.query("SELECT * FROM Users WHERE email = ?", [email], (error, results) => {
+          if (error) {
+              console.error("Database error:", error);
+              return res.status(500).json({ error: "Database error" });
+          }
+
+          if (results.length > 0) {
+              // User found, return the existing user
+              return res.status(200).json({ user: results[0] });
+          } else {
+              // 🆕 Create new user with default values
+              const newUser = {
+                  firstName: "",
+                  lastName: "",
+                  email: email,
+                  phone: "",
+                  address: "",
+                  city: "",
+                  state: "",
+                  zipCode: "",
+                  bio: "",
+                  profileImage: ""
+              };
+
+              connection.query(
+                  `INSERT INTO Users (firstName, lastName, email, phone, address, city, state, zipCode, bio, profileImage) 
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                  Object.values(newUser),
+                  (error, result) => {
+                      if (error) {
+                          console.error("Error creating new user:", error);
+                          return res.status(500).json({ error: "Failed to create user" });
+                      }
+
+                      newUser.id = result.insertId;
+                      return res.status(201).json({ user: newUser });
+                  }
+              );
+          }
+      });
+  } catch (error) {
+      console.error("Firebase Auth Error:", error);
+      res.status(401).json({ error: "Unauthorized" });
+  }
+});
+
 
 // Create user profile
 app.post('/api/users', async (req, res) => {
