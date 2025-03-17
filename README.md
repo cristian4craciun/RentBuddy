@@ -1,9 +1,5 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/WKF7bdtB)
-# MSE 342 - Sprint 1
-
-## Due: February 24, 2025, 6:00PM
-
-## GitHub Classroom link: https://classroom.github.com/a/WKF7bdtB
+[![Trello Board](https://trello.com/b/KiZjlVGq/software-project)
+# RentBuddy
 
 ## Project Description:
 RentBuddy is an innovative student housing finder designed specifically for university students. Our platform provides a seamless way to browse available housing options while also offering a roommate matching feature powered by an algorithm. By analyzing user interests, living preferences, and lifestyle compatibility, our tool helps students find not just a place to live, but the right people to live with. RentBuddy simplifies the student housing search, making it easier to find a comfortable, affordable, and well-matched living arrangement.
