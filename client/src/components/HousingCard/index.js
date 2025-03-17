@@ -9,9 +9,23 @@ import CardActions from '@mui/material/CardActions';  // Contains action buttons
 import Button from '@mui/material/Button';  // Button component from Material-UI
 import Box from '@mui/material/Box';  // Used for layout structure
 
-// Functional component that takes in housing details as props
-const HousingCard = ({ id, price, bedrooms, location, image, description }) => {
+// Functional component representing a housing card
+// ✅ Fix: Ensure all expected props are explicitly received
+const HousingCard = ({ 
+  id, price, bedrooms, bathrooms, location, image, 
+  squareFootage, leaseDuration, petsAllowed, parkingAvailable, 
+  utilitiesIncluded, description, landlordEmail 
+}) => {
+
+  // Logs the received props for debugging purposes
+  console.log("HousingCard props:", { 
+    id, price, bedrooms, bathrooms, location, image, 
+    squareFootage, leaseDuration, petsAllowed, parkingAvailable, 
+    utilitiesIncluded, description, landlordEmail 
+  });
+
   return (
+    // Card component to represent a housing listing
     <Card sx={{
       maxWidth: 380,  // Sets the maximum width of the card
       margin: "16px",  // Adds spacing around the card
@@ -36,10 +50,7 @@ const HousingCard = ({ id, price, bedrooms, location, image, description }) => {
           ${price} / month  {/* Displays the rent price */}
         </Typography>
         <Typography variant="body2" color="text.secondary" sx={{ marginBottom: "8px" }}>
-          {bedrooms} Bedroom(s) · {location}  {/* Displays number of bedrooms and location */}
-        </Typography>
-        <Typography variant="body2" sx={{ fontStyle: "italic", color: "#616161" }}>
-          {description}  {/* Displays the description in italicized text */}
+          {bedrooms} Bedroom(s) · {bathrooms} Bathroom(s) · {location}  {/* Displays number of bedrooms, bathrooms, and location */}
         </Typography>
       </CardContent>
 
@@ -49,7 +60,11 @@ const HousingCard = ({ id, price, bedrooms, location, image, description }) => {
           <Button
             component={Link}  // Uses React Router's Link to navigate
             to={`/details/${id}`}  // Routes to the details page for the selected house
-            state={{ id, price, bedrooms, location, image, description }}  // Passes housing details as state
+            state={{ 
+              id, price, bedrooms, bathrooms, location, image, 
+              squareFootage, leaseDuration, petsAllowed, parkingAvailable, 
+              utilitiesIncluded, description, landlordEmail 
+            }}  // Passes housing details as state
             variant="contained"
             sx={{
               backgroundColor: "#1976d2",  // Primary button color

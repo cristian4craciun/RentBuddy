@@ -1,6 +1,7 @@
 {
   "proxy": "http://localhost:5000/",
   "name": "node-react-app",
+  "type": "module",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -8,25 +9,38 @@
     "@emotion/styled": "^11.10.8",
     "@mui/material": "^5.12.3",
     "@mui/styled-engine-sc": "^5.12.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "firebase": "^11.4.0",
+    "firebase-admin": "^13.2.0",
     "install": "^0.13.0",
     "mathjs": "^11.8.0",
+    "mysql": "^2.18.1",
+    "node-fetch": "^3.3.1",
+    "nodemon": "^2.0.22",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.11.1",
     "react-scripts": "^5.0.1",
+    "recompose": "^0.30.0",
     "styled-components": "^5.3.10",
     "typeface-roboto": "^1.1.13",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "yarn": "^1.22.19"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "nodemon server.js",
     "build": "react-scripts build",
     "test": "jest",
     "cypress": "cypress open",
     "lint": "eslint src",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "client": "cd client && yarn start",
+    "server": "nodemon server.js",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
   },
   "eslintConfig": {
     "extends": [
@@ -71,6 +85,7 @@
     "@testing-library/react": "^14.3.1",
     "@testing-library/user-event": "^14.5.2",
     "babel-jest": "^27.5.1",
+    "concurrently": "^8.0.1",
     "cypress": "^14.0.3",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-cypress": "2.12.1",
