@@ -36,6 +36,7 @@ const Navigation = () => {
         {/* Navigation Buttons */}
         <Button color="inherit" component={Link} to="/">Housing</Button>
         <Button color="inherit" component={Link} to="/roommate-finder">Roommate Finder</Button>
+        <Button color="inherit" component={Link} to="/profile">My Profile</Button>
         <Button color="inherit" component={Link} to="/signin">Sign In</Button>
       </Toolbar>
     </AppBar>
@@ -43,4 +44,3 @@ const Navigation = () => {
 };
 
 export default Navigation;
-
