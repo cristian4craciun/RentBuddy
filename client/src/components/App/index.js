@@ -6,6 +6,7 @@ import Navigation from '../Navigation';
 import Home from '../Home';
 import RoommateFinder from '../RoommateFinder';
 import HousingDetails from '../HousingDetails';
+import MyProfile from '../Profile';
 import SignIn from '../SignIn';
 import { FirebaseContext } from '../Firebase';
 import Login from '../auth/Login/Login';
@@ -63,6 +64,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/details/:id" element={<HousingDetails />} />
           <Route path="/roommate-finder" element={<RoommateFinder />} />
+          <Route path="/profile" element={<MyProfile />} />
           {/* <Route path="/roommate-finder" element={authUser ? <RoommateFinder /> : <Navigate replace to="/signin" />} /> */}
           <Route path="/signin" element={<Login />} /> 
           <Route path="/signup" element={<SignUp />} /> 
