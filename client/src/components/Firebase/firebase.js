@@ -1,22 +1,36 @@
-import app from 'firebase/app';
-import 'firebase/auth';
+import { initializeApp } from "firebase/app"; 
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 const firebaseConfig = {
-  //Enter your firebase API details
-  };
+  apiKey: "AIzaSyCyYJPmLzAygy5rvkh9jHUyPuR7unoRYH8",
+  authDomain: "msci342-project-50a9a.firebaseapp.com",
+  projectId: "msci342-project-50a9a",
+  storageBucket: "msci342-project-50a9a.firebasestorage.app",
+  messagingSenderId: "724866549319",
+  appId: "1:724866549319:web:91dfe494f39cf41ea79362",
+  measurementId: "G-SGXJBHEN9B"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+
 class Firebase {
   constructor() {
-    app.initializeApp(firebaseConfig);
-    this.auth = app.auth();
+    this.auth = auth;
   }
   
   // *** Auth API ***
 
-  doCreateUserWithEmailAndPassword = (email, password) =>
-  this.auth.createUserWithEmailAndPassword(email, password);
+  doCreateUserWithEmailAndPassword = async (email, password) => {
+    const userCredential = await this.auth.createUserWithEmailAndPassword(email, password);
+    return userCredential.user.getIdToken(); // Get Firebase ID Token
+  };
 
-  doSignInWithEmailAndPassword = (email, password) =>
-  this.auth.signInWithEmailAndPassword(email, password);
+  doSignInWithEmailAndPassword = async (email, password) => {
+    const userCredential = await this.auth.signInWithEmailAndPassword(email, password);
+    return userCredential.user.getIdToken(); // Get Firebase ID Token
+  };
 
   doSignOut = () => this.auth.signOut();
 
