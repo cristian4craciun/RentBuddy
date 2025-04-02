@@ -69,7 +69,7 @@ const Home = () => {
                 bedrooms: listing.number_of_bedrooms,
                 bathrooms: 1, // NOT IN DB
                 location: `${listing.address}, ${listing.city}, ${listing.province}`,
-                image: "https://source.unsplash.com/random/800x600?apartment", // NOT IN DB
+                image: "https://fourteenprincess.com/wp-content/uploads/2013/10/uptown_14ps.jpg", // NOT IN DB
                 squareFootage: 800, // NOT IN DB
                 leaseDuration: `${listing.lease_length} months`,
                 petsAllowed: true, // NOT IN DB
