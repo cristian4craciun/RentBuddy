@@ -63,7 +63,7 @@ function App() {
       <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/details/:id" element={<HousingDetails />} />
-          <Route path="/profile" element={<MyProfile />} />
+          <Route path="/profile" element={authenticated ? <MyProfile /> : <Navigate to="/signin" replace />} />
           <Route path="/roommate-finder" element={authenticated ? <RoommateFinder /> : <Navigate to="/signin" replace />} />
           <Route path="/signin" element={<Login />} /> 
           <Route path="/signup" element={<SignUp />} /> 
