@@ -1,5 +1,14 @@
 import { initializeApp } from "firebase/app"; 
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+// import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signOut,
+  sendPasswordResetEmail,
+  updatePassword
+} from "firebase/auth";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyCyYJPmLzAygy5rvkh9jHUyPuR7unoRYH8",
@@ -23,21 +32,21 @@ class Firebase {
   // *** Auth API ***
 
   doCreateUserWithEmailAndPassword = async (email, password) => {
-    const userCredential = await this.auth.createUserWithEmailAndPassword(email, password);
+    const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
     return userCredential.user.getIdToken(); // Get Firebase ID Token
   };
 
   doSignInWithEmailAndPassword = async (email, password) => {
-    const userCredential = await this.auth.signInWithEmailAndPassword(email, password);
+    const userCredential = await signInWithEmailAndPassword(this.auth, email, password);
     return userCredential.user.getIdToken(); // Get Firebase ID Token
   };
 
-  doSignOut = () => this.auth.signOut();
+  doSignOut = () => signOut(this.auth);
 
-  doPasswordReset = email => this.auth.sendPasswordResetEmail(email);
+  doPasswordReset = email => sendPasswordResetEmail(this.auth, email);
 
   doPasswordUpdate = password =>
-    this.auth.currentUser.updatePassword(password);
+    updatePassword(this.auth.currentUser, password);
 
   doGetIdToken = (bool) => {
     return this.auth.currentUser.getIdToken(/* forceRefresh */ bool);

@@ -1,0 +1,119 @@
+import React, { useState, useMemo, useCallback } from 'react';
+import { Box, Typography, Button, Paper } from '@mui/material';
+import EditProfile from './EditProfile';
+
+// 1. Memoize a component with React.memo
+const ProfileDisplay = React.memo(({ profile }) => {
+  const formatKey = (key) => key.replace(/([A-Z])/g, ' $1').toUpperCase();
+
+  return (
+    <Paper elevation={3} sx={{ width: '100%', padding: 3, borderRadius: 2, marginBottom: 3 }}>
+      {Object.entries(profile).map(([key, value]) => {
+        if (key !== "allergyDetails" || profile.allergies === "Y") {
+          return (
+            <Typography key={key} sx={{ marginBottom: 1 }}>
+              <strong>{formatKey(key)}:</strong> {value || 'N/A'}
+            </Typography>
+          );
+        }
+        return null;
+      })}
+    </Paper>
+  );
+});
+
+const MyProfile = () => {
+  const [userProfile, setUserProfile] = useState({
+    name: '',
+    phoneNumber: '',
+    email: '',
+    program: '',
+    age: '',
+    numRoommates: '',
+    preferCampus: '',
+    gender: '',
+    smoking: '',
+    petFriendly: '',
+    sleepSchedule: '',
+    drinking: '',
+    gym: '',
+    hasCar: '',
+    studyHabits: '',
+    cooking: '',
+    allergies: '',
+    allergyDetails: '',
+    familiarWithCity: '',
+    newFriends: '',
+    respectBoundaries: '',
+    splitFridge: '',
+    choreSystem: '',
+    openCommunication: '',
+    organized: ''
+  });
+  const [openDialog, setOpenDialog] = useState(false);
+
+  // 2. Memoize a callback function with useCallback
+  const handleProfileChange = useCallback((updatedProfile) => {
+    setUserProfile(updatedProfile);
+    setOpenDialog(false);
+  }, []);
+
+  // 3. Memoize an expensive calculation with useMemo
+  const profileCompleteness = useMemo(() => {
+    console.log('Calculating profile completeness...');
+    const totalFields = Object.keys(userProfile).length;
+    const completedFields = Object.values(userProfile).filter(
+      value => value !== '' && value !== null && value !== undefined
+    ).length;
+    return Math.round((completedFields / totalFields) * 100);
+  }, [userProfile]);
+
+  return (
+    <Box 
+      padding={4} 
+      sx={{ 
+        backgroundColor: '#000', 
+        borderRadius: 2, 
+        maxWidth: 600,
+        margin: '0 auto',
+        color: '#fff',
+        display: 'flex', 
+        flexDirection: 'column', 
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}
+    >
+      <Typography variant="h4" gutterBottom fontWeight="bold">
+        My Profile
+      </Typography>
+      
+      {/* Display profile completeness percentage */}
+      <Typography variant="body1" paragraph>
+        Profile Complete: {profileCompleteness}%
+      </Typography>
+
+      {/* Use the memoized ProfileDisplay component */}
+      <ProfileDisplay profile={userProfile} />
+
+      <Box mt={3} sx={{ width: '100%' }}>
+        <Button 
+          variant="contained" 
+          color="primary" 
+          onClick={() => setOpenDialog(true)} 
+          sx={{ width: '100%' }}
+        >
+          Edit Profile
+        </Button>
+      </Box>
+
+      <EditProfile 
+        open={openDialog} 
+        onClose={() => setOpenDialog(false)} 
+        userProfile={userProfile} 
+        onSave={handleProfileChange} // Pass the memoized callback
+      />
+    </Box>
+  );
+};
+
+export default MyProfile;

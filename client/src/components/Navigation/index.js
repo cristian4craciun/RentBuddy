@@ -1,6 +1,6 @@
 // Importing necessary dependencies
 import React from 'react';
-import { Link } from 'react-router-dom';  // Enables navigation between pages
+import { Link, useNavigate } from 'react-router-dom';  // Enables navigation between pages
 import AppBar from '@mui/material/AppBar';  // Top navigation bar component from Material-UI
 import Toolbar from '@mui/material/Toolbar';  // Toolbar for structuring content inside AppBar
 import Typography from '@mui/material/Typography';  // Typography component for text styling
@@ -8,7 +8,18 @@ import Button from '@mui/material/Button';  // Button component from Material-UI
 import Box from '@mui/material/Box';  // Box component for layout structure
 
 // Navigation Component
-const Navigation = () => {
+const Navigation = ({ authUser, firebase }) => {
+
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    try {
+      await firebase.doSignOut();
+      navigate('/signin'); // Redirect to login after sign out
+    } catch (err) {
+      console.error("Logout failed:", err);
+    }
+  };
+
   return (
     <AppBar position="static" sx={{ backgroundColor: '#1e1e1e', padding: '8px' }}>
       <Toolbar>
@@ -35,10 +46,18 @@ const Navigation = () => {
 
         {/* Navigation Buttons */}
         <Button color="inherit" component={Link} to="/">Housing</Button>
-        <Button color="inherit" component={Link} to="/roommate-finder">Roommate Finder</Button>
-        <Button color="inherit" component={Link} to="/profile">My Profile</Button>
-        <Button color="inherit" component={Link} to="/signin">Sign In</Button>
-      </Toolbar>
+        {authUser && (
+          <>
+            <Button color="inherit" component={Link} to="/roommate-finder">Roommate Finder</Button>
+            <Button color="inherit" component={Link} to="/profile">My Profile</Button>
+          </>
+        )}
+        {authUser ? (
+          <Button color="inherit" onClick={handleLogout}>Log Out</Button>
+        ) : (
+          <Button color="inherit" component={Link} to="/signin">Sign In</Button>
+        )}      
+        </Toolbar>
     </AppBar>
   );
 };

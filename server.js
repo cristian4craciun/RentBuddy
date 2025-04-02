@@ -18,7 +18,7 @@ admin.initializeApp({
 });
 
 const app = express();
-const port = process.env.PORT || 5001;
+const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -36,6 +36,17 @@ connection.connect(function(err) {
     
     console.log("Connected to database!");
 
+    // to see table structure
+    connection.query("DESCRIBE Listings", (err, results) => {
+      if (err) {
+        console.error("Error describing Listings table:", err);
+      } else {
+        console.log("📋 Listings Table Structure:");
+        console.table(results);
+      }
+    });
+    
+
 // API to fetch all listings
 app.get('/api/listings', (req, res) => {
         let sql = "SELECT * FROM Listings";
@@ -50,6 +61,21 @@ app.get('/api/listings', (req, res) => {
         });
     });
 });
+
+// API to fetch all users
+app.get('/api/users', (req, res) => {
+  let sql = "SELECT * FROM Users";
+  connection.query(sql, (error, results) => {
+      if (error) {
+          console.error("Database query error:", error);
+          res.status(500).json({ error: "Database query failed" });
+      } else {
+          console.log("Results retrieved:", results.length);
+          res.json(results);
+      }
+  });
+});
+
 
 app.post('/api/auth', async (req, res) => {
   const { idToken } = req.body;
@@ -75,21 +101,26 @@ app.post('/api/auth', async (req, res) => {
           } else {
               // 🆕 Create new user with default values
               const newUser = {
-                  firstName: "",
-                  lastName: "",
-                  email: email,
-                  phone: "",
-                  address: "",
-                  city: "",
-                  state: "",
-                  zipCode: "",
-                  bio: "",
-                  profileImage: ""
+                first_name: decodedToken.name || "",
+                last_name: "",
+                email: email,
+                password_hash: "",
+                university: "",
+                year_of_study: null,
+                gender: null,
+                contact_method: null,
+                phone_number: "",
+                smoking_preference: null,
+                pet_friendly: null,
+                sleep_schedule: null,
+                bio: "",
               };
-
+              
               connection.query(
-                  `INSERT INTO Users (firstName, lastName, email, phone, address, city, state, zipCode, bio, profileImage) 
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                  `INSERT INTO Users (first_name, last_name, email, password_hash, university,
+                    year_of_study, gender, contact_method, phone_number,
+                    smoking_preference, pet_friendly, sleep_schedule, bio
+                  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
                   Object.values(newUser),
                   (error, result) => {
                       if (error) {
