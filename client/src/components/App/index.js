@@ -59,13 +59,12 @@ function App() {
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />  {/* Applies the theme */}
       <Router>
-        <Navigation />
-        <Routes>
+      <Navigation authUser={authUser} firebase={firebase} />
+      <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/details/:id" element={<HousingDetails />} />
-          <Route path="/roommate-finder" element={<RoommateFinder />} />
           <Route path="/profile" element={<MyProfile />} />
-          {/* <Route path="/roommate-finder" element={authUser ? <RoommateFinder /> : <Navigate replace to="/signin" />} /> */}
+          <Route path="/roommate-finder" element={authenticated ? <RoommateFinder /> : <Navigate to="/signin" replace />} />
           <Route path="/signin" element={<Login />} /> 
           <Route path="/signup" element={<SignUp />} /> 
         </Routes>

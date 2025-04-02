@@ -43,7 +43,7 @@ const Home = () => {
             setLoading(true);
             console.log("Fetching listings from:", `${serverURL}/api/listings`);
 
-            const response = await fetch(`${serverURL}/api/listings`);
+            const response = await fetch(`api/listings`);
 
             if (!response.ok) {
                 const errorText = await response.text();
@@ -59,9 +59,26 @@ const Home = () => {
             }
 
             // Map database fields...
+            // const mappedData = data.map(listing => ({
+            //     // Keep the existing mapping logic here
+            // }));
+            // Map database fields...
             const mappedData = data.map(listing => ({
-                // Keep the existing mapping logic here
+                id: listing.listing_id,
+                price: listing.price,
+                bedrooms: listing.number_of_bedrooms,
+                bathrooms: 1, // NOT IN DB
+                location: `${listing.address}, ${listing.city}, ${listing.province}`,
+                image: "https://source.unsplash.com/random/800x600?apartment", // NOT IN DB
+                squareFootage: 800, // NOT IN DB
+                leaseDuration: `${listing.lease_length} months`,
+                petsAllowed: true, // NOT IN DB
+                parkingAvailable: false, // NOT IN DB
+                utilitiesIncluded: true, // NOT IN DB
+                description: listing.listing_name, 
+                landlordEmail: listing.contact_email || "not-provided@example.com"
             }));
+
 
             setHousings(mappedData);
             setFilteredHousings(mappedData);  // Initialize filtered data
