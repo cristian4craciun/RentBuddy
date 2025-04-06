@@ -28,7 +28,9 @@ const Profile = () => {
     splitFridge: '',
     choreSystem: '',
     openCommunication: '',
-    organized: ''
+    organized: '',
+    quietHours: '',
+    splitFinances: ''
   });
   const [openDialog, setOpenDialog] = useState(false); // State to control dialog open/close
 
@@ -43,16 +45,16 @@ const Profile = () => {
       sx={{ 
         backgroundColor: '#000', 
         borderRadius: 2, 
-        maxWidth: 600, // Makes the container smaller
-        margin: '0 auto', // Centers the container
-        color: '#fff', // White text on black background
+        maxWidth: 600, 
+        margin: '0 auto', 
+        color: '#fff', 
         display: 'flex', 
         flexDirection: 'column', 
         alignItems: 'center',
         justifyContent: 'center'
       }}
     >
-      <Typography variant="h4" gutterBottom fontWeight="bold">
+      <Typography variant="h4" gutterBottom fontWeight="bold" sx = {{color: '#ADD8E6'}}>
         My Profile
       </Typography>
       <Typography variant="body1" paragraph>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'; 
 import { Dialog, DialogActions, DialogContent, DialogTitle, TextField, FormControl, InputLabel, Select, MenuItem, Button, RadioGroup, Radio, FormControlLabel, Typography } from '@mui/material';
 
 const EditProfile = ({ open, onClose, userProfile, onSave }) => {
@@ -22,8 +22,8 @@ const EditProfile = ({ open, onClose, userProfile, onSave }) => {
 
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="md">
-      <DialogTitle>Edit Profile</DialogTitle>
-      <DialogContent>
+      <DialogTitle sx={{ fontWeight: 'bold', textAlign: 'center', color: 'primary.light'}}>Edit Profile</DialogTitle>
+      <DialogContent sx={{ paddingTop: 2 }}>
         {/* Basic Profile Fields */}
         <TextField
           label="Name"
@@ -248,9 +248,9 @@ const EditProfile = ({ open, onClose, userProfile, onSave }) => {
             <MenuItem value="N">No</MenuItem>
           </Select>
         </FormControl>
-
+        <div style={{ margin: '20px 0' }} />
         {/* Personality Test Questions */}
-        <Typography variant="body1">How do you respect personal space and boundaries?</Typography>
+        <Typography variant="body1" style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>How do you respect personal space and boundaries?</Typography>
         <RadioGroup
           name="respectBoundaries"
           value={formData.respectBoundaries}
@@ -261,8 +261,8 @@ const EditProfile = ({ open, onClose, userProfile, onSave }) => {
           <FormControlLabel value="I sometimes forget to respect personal space." control={<Radio />} label="I sometimes forget to respect personal space." />
           <FormControlLabel value="I rarely think about personal boundaries." control={<Radio />} label="I rarely think about personal boundaries." />
         </RadioGroup>
-
-        <Typography variant="body1">How do you feel about sharing fridge space?</Typography>
+        <div style={{ margin: '20px 0' }} />
+        <Typography variant="body1" style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>How do you feel about sharing fridge space?</Typography>
         <RadioGroup
           name="splitFridge"
           value={formData.splitFridge}
@@ -273,8 +273,8 @@ const EditProfile = ({ open, onClose, userProfile, onSave }) => {
           <FormControlLabel value="I don't mind sharing the fridge, but I don't care if it's messy." control={<Radio />} label="I don't mind sharing the fridge, but I don't care if it's messy." />
           <FormControlLabel value="I prefer to keep my own food and not share fridge space." control={<Radio />} label="I prefer to keep my own food and not share fridge space." />
         </RadioGroup>
-
-        <Typography variant="body1">How do you handle chores in a shared space?</Typography>
+        <div style={{ margin: '20px 0' }} />
+        <Typography variant="body1" style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>How do you handle chores in a shared space?</Typography>
         <RadioGroup
           name="choreSystem"
           value={formData.choreSystem}
@@ -285,8 +285,8 @@ const EditProfile = ({ open, onClose, userProfile, onSave }) => {
           <FormControlLabel value="I rarely do chores unless reminded." control={<Radio />} label="I rarely do chores unless reminded." />
           <FormControlLabel value="I expect others to do the chores." control={<Radio />} label="I expect others to do the chores." />
         </RadioGroup>
-
-        <Typography variant="body1">How important is open communication to you in a living situation?</Typography>
+        <div style={{ margin: '20px 0' }} />
+        <Typography variant="body1" style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>How important is open communication to you in a living situation?</Typography>
         <RadioGroup
           name="openCommunication"
           value={formData.openCommunication}
@@ -297,8 +297,8 @@ const EditProfile = ({ open, onClose, userProfile, onSave }) => {
           <FormControlLabel value="Somewhat important – I prefer to avoid conflicts but will communicate if needed." control={<Radio />} label="Somewhat important – I prefer to avoid conflicts but will communicate if needed." />
           <FormControlLabel value="Not important – I prefer to handle things privately." control={<Radio />} label="Not important – I prefer to handle things privately." />
         </RadioGroup>
-
-        <Typography variant="body1">How organized are you when it comes to shared living spaces?</Typography>
+        <div style={{ margin: '20px 0' }} />
+        <Typography variant="body1" style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>How organized are you when it comes to shared living spaces?</Typography>
         <RadioGroup
           name="organized"
           value={formData.organized}
@@ -309,13 +309,37 @@ const EditProfile = ({ open, onClose, userProfile, onSave }) => {
           <FormControlLabel value="I can be messy, but I do clean up after myself." control={<Radio />} label="I can be messy, but I do clean up after myself." />
           <FormControlLabel value="I don't mind living in a messy space." control={<Radio />} label="I don't mind living in a messy space." />
         </RadioGroup>
+        <div style={{ margin: '20px 0' }} />
+        <Typography variant="body1" style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>What are your thoughts on quiet hours?</Typography>
+        <RadioGroup
+          name="quietHours"
+          value={formData.quietHours}
+          onChange={handleChange}
+        >
+          <FormControlLabel value="Never. No need for quiet hours." control={<Radio />} label="Never. No need for quiet hours." />
+          <FormControlLabel value="Starting from midnight." control={<Radio />} label="Starting from midnight." />
+          <FormControlLabel value="Starting early evening." control={<Radio />} label="Starting early evening." />
+          <FormControlLabel value="Whenever my roommates decide. I'm flexible." control={<Radio />} label="Whenever my roommates decide. I'm flexible." />
+        </RadioGroup>
+        <div style={{ margin: '20px 0' }} />
+        <Typography variant="body1" style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>How do you think finances should be split when rooming together?</Typography>
+        <RadioGroup
+          name="splitFinances"
+          value={formData.splitFinances}
+          onChange={handleChange}
+        >
+          <FormControlLabel value="Evenly, regardless of individual usage" control={<Radio />} label="Evenly, regardless of individual usage" />
+          <FormControlLabel value="Based on usage (e.g., utilities, shared items)" control={<Radio />} label="Based on usage (e.g., utilities, shared items)" />
+          <FormControlLabel value="Only for essentials like rent and internet" control={<Radio />} label="Only for essentials like rent and internet" />
+          <FormControlLabel value="openToDiscuss" control={<Radio />} label="I'm open to discussing and deciding together" />
+        </RadioGroup>
 
       </DialogContent>
-      <DialogActions>
-        <Button onClick={onClose} color="primary">
+      <DialogActions sx={{ justifyContent: 'center' }}>
+        <Button onClick={onClose} color="secondary" variant="contained" sx={{ borderRadius: 20, textTransform: 'none', paddingX: 3 }}>
           Cancel
         </Button>
-        <Button onClick={handleSubmit} color="primary">
+        <Button onClick={handleSubmit} color="primary" variant="contained" sx={{ borderRadius: 20, textTransform: 'none', paddingX: 3 }}>
           Save
         </Button>
       </DialogActions>

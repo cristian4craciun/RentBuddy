@@ -28,7 +28,9 @@ const dummyUsers = [
     splitFridge: "I like to share the fridge and keep it organized.",
     choreSystem: "I prefer to have a structured chore schedule.",
     openCommunication: "Very important – I believe in always talking through any issues.",
-    organized: "I like to keep things neat and organized at all times"
+    organized: "I like to keep things neat and organized at all times",
+    quietHours: "Starting from midnight.",
+    splitFinances: "Evenly, regardless of individual usage"
   },
   {
     name: "Emily Brown",
@@ -54,7 +56,9 @@ const dummyUsers = [
     splitFridge: "I'm fine with sharing the fridge, but I prefer to keep my items separate.",
     choreSystem: "I prefer a flexible chore system, but I still pitch in.",
     openCommunication: "Important – I like to keep communication open but it's not always necessary.",
-    organized: "I try to keep things organized but things sometimes get messy."
+    organized: "I try to keep things organized but things sometimes get messy.",
+    quietHours: "Starting early evening.",
+    splitFinances: "Based on usage (e.g., utilities, shared items)"
   },
   {
     name: "Alex Johnson",
@@ -80,7 +84,9 @@ const dummyUsers = [
     splitFridge: "I don't mind sharing the fridge, but I don't care if it's messy.",
     choreSystem: "I rarely do chores unless reminded.",
     openCommunication: "Somewhat important – I prefer to avoid conflicts but will communicate if needed.",
-    organized: "I can be messy, but I do clean up after myself."
+    organized: "I can be messy, but I do clean up after myself.",
+    quietHours: "Whenever my roommates decide. I'm flexible.",
+    splitFinances: "Only for essentials like rent and internet"
   },
   {
     name: "Samantha Green",
@@ -106,7 +112,9 @@ const dummyUsers = [
     splitFridge: "I like to share the fridge and keep it organized.",
     choreSystem: "I prefer to have a structured chore schedule.",
     openCommunication: "Very important – I believe in always talking through any issues.",
-    organized: "I like to keep things neat and organized at all times"
+    organized: "I like to keep things neat and organized at all times",
+    quietHours: "Starting from midnight.",
+    splitFinances: "I'm open to discussing and deciding together"
   },
   {
     name: "Chris Williams",
@@ -132,7 +140,9 @@ const dummyUsers = [
     splitFridge: "I'm fine with sharing the fridge, but I prefer to keep my items separate.",
     choreSystem: "I prefer a flexible chore system, but I still pitch in.",
     openCommunication: "Important – I like to keep communication open but it's not always necessary.",
-    organized: "I try to keep things organized but things sometimes get messy."
+    organized: "I try to keep things organized but things sometimes get messy.",
+    quietHours: "Starting early evening.",
+    splitFinances: "Based on usage (e.g., utilities, shared items)"
   },
   {
     name: "Jordan Lee",
@@ -158,7 +168,9 @@ const dummyUsers = [
     splitFridge: "I don't mind sharing the fridge, but I don't care if it's messy.",
     choreSystem: "I rarely do chores unless reminded.",
     openCommunication: "Somewhat important – I prefer to avoid conflicts but will communicate if needed.",
-    organized: "I can be messy, but I do clean up after myself."
+    organized: "I can be messy, but I do clean up after myself.",
+    quietHours: "Whenever my roommates decide. I'm flexible.",
+    splitFinances: "I'm open to discussing and deciding together"
   },
   {
     name: "Isabella Adams",
@@ -184,7 +196,9 @@ const dummyUsers = [
     splitFridge: "I like to share the fridge and keep it organized.",
     choreSystem: "I prefer to have a structured chore schedule.",
     openCommunication: "Very important – I believe in always talking through any issues.",
-    organized: "I like to keep things neat and organized at all times"
+    organized: "I like to keep things neat and organized at all times",
+    quietHours: "Starting from midnight.",
+    splitFinances: "Evenly, regardless of individual usage"
   },
   {
     name: "Liam Scott",
@@ -210,7 +224,9 @@ const dummyUsers = [
     splitFridge: "I'm fine with sharing the fridge, but I prefer to keep my items separate.",
     choreSystem: "I prefer a flexible chore system, but I still pitch in.",
     openCommunication: "Important – I like to keep communication open but it's not always necessary.",
-    organized: "I try to keep things organized but things sometimes get messy."
+    organized: "I try to keep things organized but things sometimes get messy.",
+    quietHours: "Starting early evening.",
+    splitFinances: "Based on usage (e.g., utilities, shared items)"
   },
   {
     name: "Mia Thomas",
@@ -236,7 +252,9 @@ const dummyUsers = [
     splitFridge: "I like to share the fridge and keep it organized.",
     choreSystem: "I prefer to have a structured chore schedule.",
     openCommunication: "Very important – I believe in always talking through any issues.",
-    organized: "I like to keep things neat and organized at all times"
+    organized: "I like to keep things neat and organized at all times",
+    quietHours: "Starting from midnight.",
+    splitFinances: "Evenly, regardless of individual usage"
   },
   {
     name: "Noah White",
@@ -261,8 +279,9 @@ const dummyUsers = [
     respectBoundaries: "I respect people's boundaries most of the time.",
     splitFridge: "I like to share the fridge and keep it organized.",
     choreSystem: "I prefer to have a structured chore schedule.",
-    openCommunication: "Very important – I believe in always talking through any issues.",
-    organized: "I like to keep things neat and organized at all times"
+    openCommunication: "Very important – I believe in",
+    quietHours: "Starting from midnight.",
+    splitFinances: "Evenly, regardless of individual usage"
   }
 ];
 
@@ -291,7 +310,9 @@ const currentUser = {
   splitFridge: "I'm fine with sharing the fridge, but I prefer to keep my items separate.",
   choreSystem: "I prefer a flexible chore system, but I still pitch in.",
   openCommunication: "Important – I like to keep communication open but it's not always necessary.",
-  organized: "I try to keep things organized but things sometimes get messy."
+  organized: "I try to keep things organized but things sometimes get messy.",
+  quietHours: "Starting from midnight.",
+  splitFinances: "Evenly, regardless of individual usage"
 };
 
 const RoommateFinder = () => {
@@ -307,7 +328,7 @@ const RoommateFinder = () => {
     const fieldsToCompare = [
       "program", "age", "numRoommates", "preferCampus", "gender", "smoking", "petFriendly", "sleepSchedule",
       "drinking", "gym", "hasCar", "studyHabits", "cooking", "allergies", "familiarWithCity", "newFriends",
-      "respectBoundaries", "splitFridge", "choreSystem", "openCommunication", "organized"
+      "respectBoundaries", "splitFridge", "choreSystem", "openCommunication", "organized", "quietHours", "splitFinances"
     ];
 
     fieldsToCompare.forEach((key) => {
@@ -400,62 +421,81 @@ const RoommateFinder = () => {
                 <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center' }}>
                   Match Score: {user.matchScore}
                 </Typography>
+                <Typography variant="caption" color="primary" sx={{ display: 'block', textAlign: 'center', marginTop: '10px' }}>
+                  Click for profile
+                </Typography>
               </CardContent>
             </Card>
           ))}
       </Box>
 
-
       {/* Dialog for showing detailed info about the selected roommate */}
-      <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <DialogTitle>
-          Roommate Details
-          <IconButton
-            edge="end"
-            color="inherit"
-            onClick={handleCloseDialog}
-            aria-label="close"
-            sx={{ position: 'absolute', right: 8, top: 8 }}
-          >
-            <CloseIcon />
-          </IconButton>
-        </DialogTitle>
-        <DialogContent sx={{ padding: '20px' }}>
+      <Dialog open={openDialog} onClose={handleCloseDialog} fullWidth maxWidth="sm">
+      <DialogContent
+          sx={{
+            padding: '24px',
+            minWidth: '350px',
+            maxWidth: '500px',
+            maxHeight: '70vh',
+            overflowY: 'auto',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 1.5,
+          }}
+        >
           {selectedRoommate && (
             <>
-              <Typography variant="h6" sx={{ marginBottom: '10px' }}>Name: {selectedRoommate.name}</Typography>
-              <Typography variant="body1" sx={{ marginBottom: '5px' }}>Email: {selectedRoommate.email}</Typography>
-              <Typography variant="body1" sx={{ marginBottom: '5px' }}>Phone: {selectedRoommate.phoneNumber}</Typography>
-              <Typography variant="body1" sx={{ marginBottom: '5px' }}>Program: {selectedRoommate.program}</Typography>
-              <Typography variant="body1" sx={{ marginBottom: '5px' }}>Age: {selectedRoommate.age}</Typography>
-              <Typography variant="body1" sx={{ marginBottom: '5px' }}>Number of Roommates: {selectedRoommate.numRoommates}</Typography>
-              <Typography variant="body1" sx={{ marginBottom: '5px' }}>Prefer Campus: {selectedRoommate.preferCampus}</Typography>
-              <Typography variant="body1" sx={{ marginBottom: '5px' }}>Gender: {selectedRoommate.gender}</Typography>
-              <Typography variant="body1" sx={{ marginBottom: '5px' }}>Smoking: {selectedRoommate.smoking}</Typography>
-              <Typography variant="body1" sx={{ marginBottom: '5px' }}>Pet Friendly: {selectedRoommate.petFriendly}</Typography>
-              <Typography variant="body1" sx={{ marginBottom: '5px' }}>Sleep Schedule: {selectedRoommate.sleepSchedule}</Typography>
-              <Typography variant="body1" sx={{ marginBottom: '5px' }}>Drinking: {selectedRoommate.drinking}</Typography>
-              <Typography variant="body1" sx={{ marginBottom: '5px' }}>Gym: {selectedRoommate.gym}</Typography>
-              <Typography variant="body1" sx={{ marginBottom: '5px' }}>Has Car: {selectedRoommate.hasCar}</Typography>
-              <Typography variant="body1" sx={{ marginBottom: '5px' }}>Study Habits: {selectedRoommate.studyHabits}</Typography>
-              <Typography variant="body1" sx={{ marginBottom: '5px' }}>Cooking: {selectedRoommate.cooking}</Typography>
-              <Typography variant="body1" sx={{ marginBottom: '5px' }}>Allergies: {selectedRoommate.allergies}</Typography>
-              <Typography variant="body1" sx={{ marginBottom: '5px' }}>Familiar With City: {selectedRoommate.familiarWithCity}</Typography>
-              <Typography variant="body1" sx={{ marginBottom: '5px' }}>New Friends: {selectedRoommate.newFriends}</Typography>
-              <Typography variant="body1" sx={{ marginBottom: '5px' }}>Respect Boundaries: {selectedRoommate.respectBoundaries}</Typography>
-              <Typography variant="body1" sx={{ marginBottom: '5px' }}>Split Fridge: {selectedRoommate.splitFridge}</Typography>
-              <Typography variant="body1" sx={{ marginBottom: '5px' }}>Chore System: {selectedRoommate.choreSystem}</Typography>
-              <Typography variant="body1" sx={{ marginBottom: '5px' }}>Open Communication: {selectedRoommate.openCommunication}</Typography>
-              <Typography variant="body1" sx={{ marginBottom: '5px' }}>Organized: {selectedRoommate.organized}</Typography>
+              <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                {selectedRoommate.name}
+              </Typography>
+              <Typography variant="body2" color="text.secondary" gutterBottom>
+                {selectedRoommate.program} | Age: {selectedRoommate.age}
+              </Typography>
+
+              <Box sx={{ borderTop: '1px solid #eee', mt: 1, pt: 1 }}>
+                {[
+                  ['Email', selectedRoommate.email],
+                  ['Phone', selectedRoommate.phoneNumber],
+                  ['# of Roommates', selectedRoommate.numRoommates],
+                  ['Prefer Campus', selectedRoommate.preferCampus],
+                  ['Gender', selectedRoommate.gender],
+                  ['Smoking', selectedRoommate.smoking],
+                  ['Pet Friendly', selectedRoommate.petFriendly],
+                  ['Sleep Schedule', selectedRoommate.sleepSchedule],
+                  ['Drinking', selectedRoommate.drinking],
+                  ['Gym', selectedRoommate.gym],
+                  ['Has Car', selectedRoommate.hasCar],
+                  ['Study Habits', selectedRoommate.studyHabits],
+                  ['Cooking', selectedRoommate.cooking],
+                  ['Allergies', selectedRoommate.allergies],
+                  ['Familiar with City', selectedRoommate.familiarWithCity],
+                  ['Wants New Friends', selectedRoommate.newFriends],
+                  ['Respect Boundaries', selectedRoommate.respectBoundaries],
+                  ['Split Fridge', selectedRoommate.splitFridge],
+                  ['Chore System', selectedRoommate.choreSystem],
+                  ['Open Communication', selectedRoommate.openCommunication],
+                  ['Organized', selectedRoommate.organized],
+                  ['Quiet Hours', selectedRoommate.quietHours],
+                  ['Split Finances', selectedRoommate.splitFinances],
+                ].map(([label, value], i) => (
+                  <Box key={i}>
+                    <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
+                      {label}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                      {value}
+                    </Typography>
+                  </Box>
+                ))}
+              </Box>
             </>
           )}
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDialog} color="primary" sx={{ margin: '10px' }}>
-            Close
-          </Button>
-        </DialogActions>
-      </Dialog>
+    </DialogContent>
+
+      <DialogActions>
+        <Button onClick={handleCloseDialog} color="primary">Close</Button>
+      </DialogActions>
+    </Dialog>
     </div>
   );
 };
