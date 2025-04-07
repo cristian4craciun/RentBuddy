@@ -7,7 +7,6 @@ import Home from '../Home';
 import RoommateFinder from '../RoommateFinder';
 import HousingDetails from '../HousingDetails';
 import MyProfile from '../Profile';
-import SignIn from '../SignIn';
 import { FirebaseContext } from '../Firebase';
 import Login from '../auth/Login/Login';
 import SignUp from '../auth/SignUp/SignUp';
@@ -19,19 +18,76 @@ const darkTheme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#90caf9',  // Light blue for accents
+      main: '#3ea6ff',      
+      contrastText: '#ffffff'
+    },
+    secondary: {
+      main: '#22c55e',       
     },
     background: {
-      default: '#121212',  // Dark background
-      paper: '#1e1e1e',  // Dark cards
+      default: '#0d1117',    
+      paper: '#1a1f24',      
     },
     text: {
-      primary: '#ffffff',  // White text
-      secondary: '#b0bec5',  // Light gray text
+      primary: '#e6edf3',
+      secondary: '#9ea7b3',
     },
+    divider: '#30363d',
   },
   typography: {
-    fontFamily: "'Poppins', sans-serif",  // Modern font
+    fontFamily: "'Poppins', sans-serif",
+    fontWeightRegular: 400,
+    fontWeightMedium: 500,
+    fontWeightBold: 600,
+    button: {
+      textTransform: 'none',
+      fontWeight: 600,
+    },
+  },
+  shape: {
+    borderRadius: 12,
+  },
+  components: {
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundImage: 'none',  
+          borderRadius: 16,
+        },
+      },
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          borderRadius: 16,
+          backgroundColor: '#1a1f24',
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 999,
+          textTransform: 'none',
+          fontWeight: 600,
+        },
+      },
+    },
+    MuiDialog: {
+      styleOverrides: {
+        paper: {
+          borderRadius: 16,
+          backgroundColor: '#1a1f24',
+        },
+      },
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          fontWeight: 500,
+        },
+      },
+    },
   }
 });
 
