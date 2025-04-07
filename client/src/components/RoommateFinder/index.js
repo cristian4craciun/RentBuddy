@@ -1,6 +1,24 @@
 import React, { useState } from 'react';
-import {Button, Card, CardContent, Typography, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Box,} from '@mui/material';
+import {
+  Button,
+  Card,
+  CardContent,
+  Typography,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Box,
+  Stack,
+  IconButton,
+  Divider,
+  Chip,
+  Avatar,
+  Grid,
+  Paper
+} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import PersonIcon from '@mui/icons-material/Person';
 
 // Dummy user data
 const dummyUsers = [
@@ -369,134 +387,134 @@ const RoommateFinder = () => {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
-      <Button
-        variant="contained"
-        onClick={findRoommates}
-        sx={{
-          marginBottom: '20px',
-          backgroundColor: 'primary',
-          '&:hover': {
-            backgroundColor: 'primary',
-          },
-        }}
-      >
-        Find Roommates
-      </Button>
-      <Typography variant="body1" color="textSecondary">
+    <Box sx={{ px: 4, py: 6, bgcolor: '#0d1117', minHeight: '100vh' }}>
+      <Stack spacing={2} alignItems="center">
+        <Typography variant="h3" fontWeight="bold" sx={{ color: '#58a6ff' }}>
+        Roommate Finder
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
         Make sure you've completed your profile!
-      </Typography>
+        </Typography>
+        <Button
+          variant="contained"
+          onClick={findRoommates}
+          sx={{
+            bgcolor: '#238636',
+            px: 5,
+            py: 1.5,
+            fontWeight: 600,
+            borderRadius: '999px',
+            textTransform: 'none',
+            '&:hover': { bgcolor: '#2ea043' },
+          }}
+        >
+          🔍 Find Roommates
+        </Button>
 
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        flexDirection="column"
-        sx={{
-          minHeight: '80vh', // Set the minimum height of the container
-          marginTop: '20px',
-        }}
-      >
-        {matches.length > 0 &&
-          matches.map((user, index) => (
+        <Box
+          display="flex"
+          flexWrap="wrap"
+          justifyContent="center"
+          gap={4}
+          mt={12}
+        >
+          {matches.map((user, i) => (
             <Card
-              key={index}
-              sx={{
-                width: 250,
-                cursor: "pointer",
-                boxShadow: 2,
-                borderRadius: 2,
-                transition: 'transform 0.3s',
-                '&:hover': {
-                  transform: 'scale(1.05)',
-                },
-                marginBottom: '20px', // Add space between cards
-              }}
+              key={i}
               onClick={() => handleCardClick(user)}
+              sx={{
+                width: 260,
+                height: 200,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                cursor: 'pointer',
+                bgcolor: '#161b22',
+                color: '#e6edf3',
+                boxShadow: 3,
+                borderRadius: 4,
+                transition: '0.3s',
+                '&:hover': { transform: 'translateY(-5px)', boxShadow: 6 },
+              }}
             >
               <CardContent>
-                <Typography variant="h6" sx={{ textAlign: 'center', fontWeight: 'bold' }}>
-                  {user.name}
-                </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center' }}>
-                  Match Score: {user.matchScore}
-                </Typography>
-                <Typography variant="caption" color="primary" sx={{ display: 'block', textAlign: 'center', marginTop: '10px' }}>
-                  Click for profile
-                </Typography>
+                <Stack alignItems="center" spacing={1}>
+                  <Avatar sx={{ bgcolor: '#58a6ff', width: 56, height: 56 }}>
+                    <PersonIcon />
+                  </Avatar>
+                  <Typography variant="h6" fontWeight="bold">
+                    {user.name}
+                  </Typography>
+                  <Chip label={`Score: ${user.matchScore}`} size="small" color="success" />
+                  <Typography variant="caption" color="primary">
+                    Tap to view profile
+                  </Typography>
+                </Stack>
               </CardContent>
             </Card>
           ))}
-      </Box>
+        </Box>
+      </Stack>
 
-      {/* Dialog for showing detailed info about the selected roommate */}
-      <Dialog open={openDialog} onClose={handleCloseDialog} fullWidth maxWidth="sm">
-      <DialogContent
-          sx={{
-            padding: '24px',
-            minWidth: '350px',
-            maxWidth: '500px',
-            maxHeight: '70vh',
-            overflowY: 'auto',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 1.5,
-          }}
-        >
+      <Dialog open={openDialog} onClose={handleCloseDialog} fullWidth maxWidth="md" PaperProps={{ sx: { bgcolor: '#0d1117', color: '#e6edf3', borderRadius: 4 } }}>
+        <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', px: 4 }}>
+          <Typography variant="h5" fontWeight="bold">
+            {selectedRoommate?.name}
+          </Typography>
+          <IconButton onClick={handleCloseDialog} sx={{ color: '#8b949e' }}>
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+
+        <DialogContent dividers sx={{ px: 4, py: 3 }}>
           {selectedRoommate && (
-            <>
-              <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                {selectedRoommate.name}
-              </Typography>
-              <Typography variant="body2" color="text.secondary" gutterBottom>
-                {selectedRoommate.program} | Age: {selectedRoommate.age}
-              </Typography>
-
-              <Box sx={{ borderTop: '1px solid #eee', mt: 1, pt: 1 }}>
+            <Stack spacing={2}>
+              <Stack direction="row" spacing={2} alignItems="center">
+                <Avatar sx={{ bgcolor: '#58a6ff', width: 64, height: 64 }}>
+                  <PersonIcon fontSize="large" />
+                </Avatar>
+                <Box>
+                  <Typography variant="h6" fontWeight="bold">
+                    {selectedRoommate.program}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Age: {selectedRoommate.age}
+                  </Typography>
+                </Box>
+              </Stack>
+              <Divider sx={{ borderColor: '#30363d', my: 2 }} />
+              <Grid container spacing={2}>
                 {[
-                  ['Email', selectedRoommate.email],
-                  ['Phone', selectedRoommate.phoneNumber],
-                  ['# of Roommates', selectedRoommate.numRoommates],
-                  ['Prefer Campus', selectedRoommate.preferCampus],
-                  ['Gender', selectedRoommate.gender],
-                  ['Smoking', selectedRoommate.smoking],
-                  ['Pet Friendly', selectedRoommate.petFriendly],
-                  ['Sleep Schedule', selectedRoommate.sleepSchedule],
-                  ['Drinking', selectedRoommate.drinking],
-                  ['Gym', selectedRoommate.gym],
-                  ['Has Car', selectedRoommate.hasCar],
-                  ['Study Habits', selectedRoommate.studyHabits],
-                  ['Cooking', selectedRoommate.cooking],
-                  ['Allergies', selectedRoommate.allergies],
-                  ['Familiar with City', selectedRoommate.familiarWithCity],
-                  ['Wants New Friends', selectedRoommate.newFriends],
-                  ['Respect Boundaries', selectedRoommate.respectBoundaries],
-                  ['Split Fridge', selectedRoommate.splitFridge],
-                  ['Chore System', selectedRoommate.choreSystem],
-                  ['Open Communication', selectedRoommate.openCommunication],
-                  ['Organized', selectedRoommate.organized],
-                  ['Quiet Hours', selectedRoommate.quietHours],
-                  ['Split Finances', selectedRoommate.splitFinances],
-                ].map(([label, value], i) => (
-                  <Box key={i}>
-                    <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
-                      {label}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                      {value}
-                    </Typography>
-                  </Box>
+                  "email", "phoneNumber", "numRoommates", "preferCampus", "gender",
+                  "smoking", "petFriendly", "sleepSchedule", "drinking", "gym",
+                  "hasCar", "studyHabits", "cooking", "allergies", "familiarWithCity",
+                  "newFriends", "respectBoundaries", "splitFridge", "choreSystem",
+                  "openCommunication", "organized", "quietHours", "splitFinances"
+                ].map((key, i) => (
+                  <Grid item xs={12} sm={6} key={i}>
+                    <Paper elevation={1} sx={{ height: '100%', p: 2, bgcolor: '#161b22', borderRadius: 2, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                      <Typography variant="subtitle2" fontWeight={600} sx={{ color: '#58a6ff' }}>
+                        {key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {selectedRoommate[key] || 'N/A'}
+                      </Typography>
+                    </Paper>
+                  </Grid>
                 ))}
-              </Box>
-            </>
+              </Grid>
+            </Stack>
           )}
-    </DialogContent>
+        </DialogContent>
 
-      <DialogActions>
-        <Button onClick={handleCloseDialog} color="primary">Close</Button>
-      </DialogActions>
-    </Dialog>
-    </div>
+        <DialogActions sx={{ px: 4, pb: 3 }}>
+          <Button onClick={handleCloseDialog} variant="outlined" sx={{ borderRadius: '999px', px: 3, color: '#e6edf3', borderColor: '#90caf9', '&:hover': { borderColor: '#58a6ff', color: '#58a6ff' } }}>
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </Box>
   );
 };
 
