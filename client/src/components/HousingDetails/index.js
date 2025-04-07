@@ -1,14 +1,28 @@
-// Import necessary dependencies from React and Material-UI
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom'; // Used for accessing route state and navigation
-import { Container, Typography, Box, Button, Card, CardMedia, CardContent, Divider } from '@mui/material'; // UI components from Material-UI
-import { ArrowBack, LocationOn, Bed, Bathtub, SquareFoot, Pets, LocalParking, AttachMoney, Email, Description } from '@mui/icons-material'; // Material-UI icons
+import { Container, Typography, Box, Button, Card, CardMedia, CardContent, Divider, TextField, Rating } from '@mui/material'; // UI components from Material-UI
+import { LocalGasStation, Phone, MailOutline, Pets, Bathtub, LocationOn, SquareFoot } from '@mui/icons-material'; // Material-UI icons
 
-// Functional component to display detailed information about a selected housing listing
 const HousingDetails = () => {
   const location = useLocation();  // Retrieves the passed state (housing details)
   const housing = location.state;  // Stores the housing details from the previous page
   const navigate = useNavigate();  // Enables navigation back to the previous page
+
+  const [reviews, setReviews] = useState([]); // Store reviews in state
+  const [reviewText, setReviewText] = useState(""); // State for review text
+  const [reviewRating, setReviewRating] = useState(1); // Default rating is 1
+  const [showReviewForm, setShowReviewForm] = useState(false); // To toggle the review form
+
+  const handleReviewSubmit = () => {
+    const newReview = {
+      text: reviewText,
+      rating: reviewRating,
+    };
+    setReviews([...reviews, newReview]); // Add new review to the list
+    setReviewText(""); // Clear the review text after submitting
+    setReviewRating(1); // Reset rating to 1
+    setShowReviewForm(false); // Hide the review form after submission
+  };
 
   // If no housing data is found, display an error message
   if (!housing) {
@@ -16,21 +30,16 @@ const HousingDetails = () => {
   }
 
   return (
-    <Container maxWidth="md" sx={{ marginTop: "32px", marginBottom: "32px" }}>
-      
+    <Container maxWidth="lg" sx={{ marginTop: "32px", marginBottom: "32px" }}>
       {/* Back Button - Navigates to the previous page */}
       <Button 
-        startIcon={<ArrowBack />}  // Adds an arrow icon before the text
-        onClick={() => navigate(-1)}  // Goes back to the previous page
+        onClick={() => navigate(-1)}  
         sx={{ marginBottom: "16px" }}  
       >
         Back to Listings
       </Button>
 
-      {/* Housing Details Card */}
-      <Card sx={{ borderRadius: "16px", boxShadow: 4 }}>
-        
-        {/* Housing Image */}
+      <Card sx={{ borderRadius: "16px", boxShadow: 4, maxWidth: '1200px', margin: 'auto' }}>
         <CardMedia
           component="img"
           height="400"  // Sets the image height
@@ -43,78 +52,109 @@ const HousingDetails = () => {
           }}
         />
 
-        {/* Housing Information Section */}
-        <CardContent>
-          
-          {/* Display Price and Location Details */}
-          <Typography variant="h4" fontWeight="bold" gutterBottom>
-            ${housing.price} / month  {/* Displays the monthly rent price */}
-          </Typography>
-          <Typography variant="h6" color="text.secondary">
-            <Bed sx={{ verticalAlign: "middle", marginRight: "6px" }} /> {housing.bedrooms} Bedroom(s) · 
-            <Bathtub sx={{ verticalAlign: "middle", marginRight: "6px", marginLeft: "6px" }} /> {housing.bathrooms} Bathroom(s) · 
-            <LocationOn sx={{ verticalAlign: "middle", marginRight: "6px", marginLeft: "6px" }} /> {housing.location}
-          </Typography>
+        {/* Housing Details and Landlord Contact Section */}
+        <CardContent sx={{ padding: '16px' }}>
+          {/* Left: Housing Details */}
+          <Box sx={{ marginBottom: '16px' }}>
+            <Typography variant="h4" fontWeight="bold" gutterBottom>
+              ${housing.price} / month  {/* Displays the monthly rent price */}
+            </Typography>
+            <Typography variant="h6" color="text.secondary">
+              {housing.bedrooms} Bedroom(s) · {housing.bathrooms} Bathroom(s) · {housing.location}
+            </Typography>
 
-          {/* Divider for separating sections */}
-          <Divider sx={{ marginY: "16px" }} />
-
-          {/* Additional Housing Details */}
-          <Typography variant="body1" sx={{ marginBottom: "8px" }}>
-            <SquareFoot sx={{ verticalAlign: "middle", marginRight: "6px" }} /> 
-            <strong>Square Footage:</strong> {housing.squareFootage ? `${housing.squareFootage} sqft` : "Not provided"}
-          </Typography>
-          <Typography variant="body1" sx={{ marginBottom: "8px" }}>
-            <AttachMoney sx={{ verticalAlign: "middle", marginRight: "6px" }} /> 
-            <strong>Lease Duration:</strong> {housing.leaseDuration ? housing.leaseDuration : "Not specified"}
-          </Typography>
-          <Typography variant="body1" sx={{ marginBottom: "8px" }}>
-            <Pets sx={{ verticalAlign: "middle", marginRight: "6px" }} /> 
-            <strong>Pet Policy:</strong> {housing.petsAllowed ? "Allowed" : "Not Allowed"}
-          </Typography>
-          <Typography variant="body1" sx={{ marginBottom: "8px" }}>
-            <LocalParking sx={{ verticalAlign: "middle", marginRight: "6px" }} /> 
-            <strong>Parking:</strong> {housing.parkingAvailable ? "Available" : "Not Available"}
-          </Typography>
-          <Typography variant="body1" sx={{ marginBottom: "8px" }}>
-            <strong>Utilities Included:</strong> {housing.utilitiesIncluded ? "Yes" : "No"}
-          </Typography>
-
-          {/* Housing Description */}
-          <Typography variant="body1" sx={{ marginTop: "12px", lineHeight: 1.6 }}>
-            <Description sx={{ verticalAlign: "middle", marginRight: "6px" }} /> 
-            {housing.description ? housing.description : "No description available"}
-          </Typography>
-
-          {/* Contact Landlord Button */}
-          <Box sx={{ marginTop: "24px", textAlign: "center" }}>
-            <Button 
-              variant="contained" 
-              startIcon={<Email />}
-              onClick={() => {
-                // If landlord email is available, show an alert with the email address
-                if (housing.landlordEmail) {
-                  alert(`Contact the landlord at: ${housing.landlordEmail}`);
-                } else {
-                  alert("No landlord email available for this listing.");
-                }
-              }}
-              sx={{ 
-                backgroundColor: "#1976d2", 
-                "&:hover": { backgroundColor: "#135ba1" }, 
-                borderRadius: "8px",
-                padding: "10px 20px"
-              }}
-            >
-              Contact Landlord
-            </Button>
+            <Typography variant="body1" sx={{ marginTop: "16px" }}>
+              <SquareFoot sx={{ verticalAlign: 'middle', marginRight: '6px' }} />
+              <strong>Square Footage:</strong> {housing.squareFootage ? `${housing.squareFootage} sqft` : "Not provided"}
+            </Typography>
+            <Typography variant="body1">
+              <LocalGasStation sx={{ verticalAlign: 'middle', marginRight: '6px' }} />
+              <strong>Lease Duration:</strong> {housing.leaseDuration ? housing.leaseDuration : "Not specified"}
+            </Typography>
+            <Typography variant="body1">
+              <Pets sx={{ verticalAlign: 'middle', marginRight: '6px' }} />
+              <strong>Pets Allowed:</strong> {housing.petsAllowed ? "Yes" : "No"}
+            </Typography>
+            <Typography variant="body1">
+              <LocationOn sx={{ verticalAlign: 'middle', marginRight: '6px' }} />
+              <strong>Parking Available:</strong> {housing.parkingAvailable ? "Yes" : "No"}
+            </Typography>
+            <Typography variant="body1">
+              <LocalGasStation sx={{ verticalAlign: 'middle', marginRight: '6px' }} />
+              <strong>Utilities Included:</strong> {housing.utilitiesIncluded ? "Yes" : "No"}
+            </Typography>
           </Box>
 
+          {/* Landlord Contact Info */}
+          <Box sx={{ marginBottom: '16px' }}>
+            <Typography variant="h6" fontWeight="bold">Landlord Contact</Typography>
+            <Box sx={{ marginTop: "16px" }}>
+            <Typography variant="body1">
+              <MailOutline sx={{ verticalAlign: 'middle', marginRight: '6px' }} />
+              <strong>Email:</strong> {housing.landlordEmail}</Typography>
+              <Typography variant="body1">
+              <Phone sx={{ verticalAlign: 'middle', marginRight: '6px' }} />
+              <strong>Phone:</strong> {housing.landlordPhone || "Not provided"}</Typography>
+            </Box>
+          </Box>
+
+          <Divider sx={{ marginY: "16px" }} />
+
+          {/* Display some reviews */}
+          {reviews.length > 0 && (
+            <Box sx={{ marginTop: "16px" }}>
+              <Typography variant="h6">Reviews</Typography>
+              {reviews.slice(0, 3).map((review, index) => (
+                <Box key={index} sx={{ marginBottom: "12px" }}>
+                  <Typography><strong>Rating:</strong> {review.rating} / 5</Typography>
+                  <Typography>{review.text}</Typography>
+                </Box>
+              ))}
+            </Box>
+          )}
+
+          {/* Show Review Form Button */}
+          <Button
+            variant="contained"
+            sx={{ marginTop: "16px" }}
+            onClick={() => setShowReviewForm(!showReviewForm)}  // Toggle review form visibility
+          >
+            {showReviewForm ? "Cancel" : "Write a Review"}
+          </Button>
+
+          {/* Review Form Section */}
+          {showReviewForm && (
+            <Box sx={{ marginTop: "16px" }}>
+              <Typography variant="h6">Write a Review</Typography>
+              <TextField
+                fullWidth
+                multiline
+                rows={4}
+                label="Write a review"
+                value={reviewText}
+                onChange={(e) => setReviewText(e.target.value)}
+              />
+              <Box sx={{ marginTop: "8px" }}>
+                <Typography variant="body2">Rating</Typography>
+                <Rating
+                  value={reviewRating}
+                  onChange={(e, newValue) => setReviewRating(newValue)}
+                  sx={{ marginTop: "8px" }}
+                />
+              </Box>
+              <Button
+                variant="contained"
+                sx={{ marginTop: "8px" }}
+                onClick={handleReviewSubmit}
+              >
+                Submit Review
+              </Button>
+            </Box>
+          )}
         </CardContent>
       </Card>
     </Container>
   );
 };
 
-// Export the HousingDetails component to be used elsewhere in the application
 export default HousingDetails;
