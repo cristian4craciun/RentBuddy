@@ -11,6 +11,7 @@ import SignIn from '../SignIn';
 import { FirebaseContext } from '../Firebase';
 import Login from '../auth/Login/Login';
 import SignUp from '../auth/SignUp/SignUp';
+import 'leaflet/dist/leaflet.css';
 
 
 // Create a dark theme
