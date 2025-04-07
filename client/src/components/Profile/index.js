@@ -84,7 +84,7 @@ const Profile = () => {
             textAlign="center"
             sx={{ color: '#8b949e', mb: 2 }}
           >
-            Keep your preferences up-to-date to get the best roommate matches.
+            Complete your profile information below!
           </Typography>
 
           <Divider sx={{ borderColor: '#30363d', mb: 3 }} />
