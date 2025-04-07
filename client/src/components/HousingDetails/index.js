@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom'; // Used for accessing route state and navigation
-import { Container, Typography, Box, Button, Card, CardMedia, CardContent, Divider, TextField, Rating } from '@mui/material'; // UI components from Material-UI
-import { LocalGasStation, Phone, MailOutline, Pets, Bathtub, LocationOn, SquareFoot } from '@mui/icons-material'; // Material-UI icons
+import { Container, Typography, Box, Button, Card, CardMedia, CardContent, Divider, Grid, Paper } from '@mui/material'; // UI components from Material-UI
+import { ArrowBack, LocationOn, Bed, Bathtub, SquareFoot, Pets, LocalParking, AttachMoney, Email, Description, Map } from '@mui/icons-material'; // Material-UI icons
+import MapComponent from '../MapComponent'; // Import the MapComponent
 
 const HousingDetails = () => {
   const location = useLocation();  // Retrieves the passed state (housing details)
@@ -40,6 +41,8 @@ const HousingDetails = () => {
       </Button>
 
       <Card sx={{ borderRadius: "16px", boxShadow: 4, maxWidth: '1200px', margin: 'auto' }}>
+        
+        {/* Housing Image */}
         <CardMedia
           component="img"
           height="400"  // Sets the image height
@@ -153,8 +156,33 @@ const HousingDetails = () => {
           )}
         </CardContent>
       </Card>
+
+      {/* Location Map Card */}
+      <Card sx={{ borderRadius: "16px", boxShadow: 4 }}>
+        <CardContent>
+          <Typography variant="h5" sx={{ display: "flex", alignItems: "center", marginBottom: "16px" }}>
+            <Map sx={{ marginRight: "8px" }} />
+            Location
+          </Typography>
+          
+          {/* Map Component with direct Box wrapper */}
+          <Box sx={{ height: 400, width: '100%', borderRadius: "8px", overflow: "hidden" }}>
+            <MapComponent 
+              address={housing.location} 
+              height={400} 
+              zoom={15}
+              showPopup={true}
+            />
+          </Box>
+          
+          <Typography variant="body2" color="text.secondary" sx={{ marginTop: "12px", textAlign: "center" }}>
+            {housing.location}
+          </Typography>
+        </CardContent>
+      </Card>
     </Container>
   );
 };
 
 export default HousingDetails;
+

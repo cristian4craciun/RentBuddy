@@ -130,7 +130,7 @@ const Home = () => {
             "price": 750,
             "bedrooms": 2,
             "bathrooms": 1,
-            "location": "Near University of Waterloo",
+            "location": "118 Columbia St W",
             "image": "https://live-production.wcms.abc-cdn.net.au/37e49def1e066c0909c4fc2fad28e115?impolicy=wcms_crop_resize&cropH=2214&cropW=3936&xPos=0&yPos=99&width=862&height=485",
             "squareFootage": 900,
             "leaseDuration": "12 months",
