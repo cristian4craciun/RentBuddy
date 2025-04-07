@@ -50,6 +50,9 @@ describe("FilterBar Component", () => {
       bathrooms: "",
       petsAllowed: false,
       parkingAvailable: false,
+      nonSmoking: false,
+      utilitiesIncluded: false,
+      gender: "", // Added gender field to match the filter
     });
   });
 
