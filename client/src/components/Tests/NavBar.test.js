@@ -13,22 +13,32 @@ import { MemoryRouter } from 'react-router-dom';
 // Import the Navigation component that we are testing
 import Navigation from '../Navigation';
 
-// Define the test case
-test('renders navigation links correctly', () => {
-  // Render the Navigation component inside a MemoryRouter
-  // MemoryRouter allows us to test components that use React Router
-  render(
-    <MemoryRouter>
-      <Navigation />
-    </MemoryRouter>
-  );
+describe('Navigation Component', () => {
+  test('renders navigation links correctly and handles unauthenticated users', () => {
+    // Render the Navigation component inside a MemoryRouter
+    // MemoryRouter allows us to test components that use React Router
+    render(
+      <MemoryRouter>
+        <Navigation authUser={null} firebase={{}} />
+      </MemoryRouter>
+    );
 
-  // Check if the "Housing" link is present in the document
-  expect(screen.getByText('Housing')).toBeInTheDocument();
+    expect(screen.getByText('RentBuddy')).toBeInTheDocument();
+    expect(screen.getByText('Housing')).toBeInTheDocument();
+    expect(screen.getByText('Sign In')).toBeInTheDocument();
+  });
 
-  // Check if the "Roommate Finder" link is present in the document
-  expect(screen.getByText('Roommate Finder')).toBeInTheDocument();
+  test('renders navigation links correctly and handles authenticated users', () => {
+    render(
+      <MemoryRouter>
+        <Navigation authUser={{ uid: '123' }} firebase={{ doSignOut: jest.fn() }} />
+      </MemoryRouter>
+    );
 
-  // Check if the "My Profile" link is present in the document
-  expect(screen.getByText('My Profile')).toBeInTheDocument();
+    expect(screen.getByText('RentBuddy')).toBeInTheDocument();
+    expect(screen.getByText('Housing')).toBeInTheDocument();
+    expect(screen.getByText('Roommate Finder')).toBeInTheDocument();
+    expect(screen.getByText('My Profile')).toBeInTheDocument();
+    expect(screen.getByText('Log Out')).toBeInTheDocument();
+  });
 });

@@ -4,6 +4,7 @@ import { createTheme, ThemeProvider, CssBaseline, Container } from '@mui/materia
 import callApiLoadUserSettings from './callApiLoadUserSettings';
 import HousingList from '../HousingCard/housinglist';  // Adjust the path if necessary
 import FilterBar from '../Filters';  // ✅ Import the new FilterBar component
+import SearchBar from '../Filters/SearchBar';  // ✅ Import the SearchBar component
 
 const serverURL = "https://shiny-doodle-j96545wrjqw25g4j-5000.app.github.dev"; // Change based on forwarded URL
 
@@ -75,9 +76,11 @@ const Home = () => {
                 petsAllowed: true, // NOT IN DB
                 parkingAvailable: false, // NOT IN DB
                 utilitiesIncluded: true, // NOT IN DB
-                description: listing.listing_name, 
-                landlordEmail: listing.contact_email || "not-provided@example.com"
+                description: listing.listing_name,
+                landlordEmail: listing.contact_email || "not-provided@example.com",
+                landlordPhone: listing.contact_phone || "Not provided", // Add phone number here
             }));
+            
 
 
             setHousings(mappedData);
@@ -101,10 +104,22 @@ const Home = () => {
                 (filters.bedrooms === "" || housing.bedrooms === parseInt(filters.bedrooms)) &&
                 (filters.bathrooms === "" || housing.bathrooms === parseInt(filters.bathrooms)) &&
                 (!filters.petsAllowed || housing.petsAllowed) &&
-                (!filters.parkingAvailable || housing.parkingAvailable)
+                (!filters.parkingAvailable || housing.parkingAvailable) &&
+                (!filters.nonSmoking || housing.nonSmoking) &&  // Non-smoking filter
+                (!filters.utilitiesIncluded || housing.utilitiesIncluded) && // Utilities Included filter
+                (filters.gender === "" || housing.gender === filters.gender) // Gender filter
             );
         });
+    
+        setFilteredHousings(filtered);
+    };
 
+    // ✅ Function to apply search filter based on the entered keyword
+    const applySearch = (searchQuery) => {
+        const filtered = housings.filter(housing => 
+            housing.location.toLowerCase().includes(searchQuery.toLowerCase()) || 
+            housing.description.toLowerCase().includes(searchQuery.toLowerCase())
+        );
         setFilteredHousings(filtered);
     };
 
@@ -115,7 +130,7 @@ const Home = () => {
             "price": 750,
             "bedrooms": 2,
             "bathrooms": 1,
-            "location": "Near University of Waterloo",
+            "location": "118 Columbia St W",
             "image": "https://live-production.wcms.abc-cdn.net.au/37e49def1e066c0909c4fc2fad28e115?impolicy=wcms_crop_resize&cropH=2214&cropW=3936&xPos=0&yPos=99&width=862&height=485",
             "squareFootage": 900,
             "leaseDuration": "12 months",
@@ -219,6 +234,9 @@ const Home = () => {
                 >
                     Housing
                 </Typography>
+
+                {/* ✅ Render the SearchBar */}
+                <SearchBar applySearch={applySearch} />  {/* Add SearchBar here */}
 
                 {/* ✅ Render the FilterBar */}
                 <FilterBar applyFilters={applyFilters} />

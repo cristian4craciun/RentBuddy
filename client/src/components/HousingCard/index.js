@@ -8,14 +8,21 @@ import Typography from '@mui/material/Typography';  // Text styling component
 import CardActions from '@mui/material/CardActions';  // Contains action buttons
 import Button from '@mui/material/Button';  // Button component from Material-UI
 import Box from '@mui/material/Box';  // Used for layout structure
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import MapComponent from '../MapComponent'; // Import the MapComponent
 
 // Functional component representing a housing card
-// ✅ Fix: Ensure all expected props are explicitly received
 const HousingCard = ({ 
   id, price, bedrooms, bathrooms, location, image, 
   squareFootage, leaseDuration, petsAllowed, parkingAvailable, 
   utilitiesIncluded, description, landlordEmail 
 }) => {
+  const [tabValue, setTabValue] = React.useState(0);
+
+  const handleTabChange = (event, newValue) => {
+    setTabValue(newValue);
+  };
 
   // Logs the received props for debugging purposes
   console.log("HousingCard props:", { 
@@ -35,14 +42,31 @@ const HousingCard = ({
       "&:hover": { transform: "scale(1.03)" }  // Slightly enlarges the card when hovered
     }}>
       
-      {/* CardMedia component to display the housing image */}
-      <CardMedia
-        component="img"
-        height="220"  // Image height
-        image={image}  // Image source passed as a prop
-        alt="Housing Image"
-        sx={{ borderTopLeftRadius: "12px", borderTopRightRadius: "12px" }}  // Rounded top corners
-      />
+      {/* Tabs to switch between Image and Map */}
+      <Tabs 
+        value={tabValue} 
+        onChange={handleTabChange} 
+        variant="fullWidth"
+        sx={{ borderBottom: 1, borderColor: 'divider' }}
+      >
+        <Tab label="Photo" />
+        <Tab label="Map" />
+      </Tabs>
+
+      {/* Content based on selected tab */}
+      {tabValue === 0 ? (
+        <CardMedia
+          component="img"
+          height="220"  // Image height
+          image={image}  // Image source passed as a prop
+          alt="Housing Image"
+          sx={{ borderTopLeftRadius: "12px", borderTopRightRadius: "12px" }}  // Rounded top corners
+        />
+      ) : (
+        <Box sx={{ height: 220 }}>
+          <MapComponent address={location} height={220} zoom={14} />
+        </Box>
+      )}
 
       {/* CardContent section containing the housing details */}
       <CardContent>
@@ -77,7 +101,6 @@ const HousingCard = ({
           </Button>
         </Box>
       </CardActions>
-
     </Card>
   );
 };
